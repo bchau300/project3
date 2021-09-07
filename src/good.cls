@@ -1,4 +1,15 @@
-public class good{
-    Account queriedAccount = [SELECT Id, Name FROM Account LIMIT 1];
-    String accountName = queriedAccount.Name;
+public class Foo {
+    public void bar() {
+        Account acc = [SELECT Name, Owner.Name FROM Account LIMIT 1];
+        System.debug(accs); // will get reported
+    }
+
+    @SuppressWarnings('PMD.AvoidDebugStatements')
+    public void baz() {
+        try {
+            Account myAccount = bar();
+        } catch (Exception e) {
+            System.debug(LoggingLevel.ERROR, e.getMessage()); // good to go
+        }
+    }
 }
